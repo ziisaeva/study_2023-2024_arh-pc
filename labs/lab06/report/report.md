@@ -231,13 +231,35 @@ call iprintLF
 **Листинг 4.1. Программа для вычисления значения выражения (x + 2)^2
 
 ```NASM
+%include 'in_out. asm' ; подключение внешнего файла
+SECTION data
+msg: DB "Введите значение переменной х: ",0
+rem: DB "Результат: ",0
+SECTION bss
+x: RESB 80 ; Переменная, значения к-рой будем вводить с клавиатуры
+SECTION text
+GLOBAL _start start:
+mov eax, msg call sprint mov ecx, x
+mov edx, 80 call sread
+mov eax,x ; вызов подпрограммы преобразования
+call atoi; ASCII кода в число, 'eax=x*
+add eax, 2; eax = 2+eax = 2 + x
 
+mul eax;
+
+mov edi, eax ; запись результата вычисления в "edi" 
+mov eax, rem ; вызов подпрограммы печати 
+call sprint ; сообщения "Результат" 
+mov eax, edi ; вызов подпрограммы печати значения
+call iprintLF ; из 'edi" в виде символов 
+call quit ; вызов подпрограммы завершения
+```
 
 # Выводы
 
-Здесь кратко описываются итоги проделанной работы.
+При выполнении данной лабораторной работы я освоила арифметические инструкции языка ассемблера NASM.
 
 # Список литературы{.unnumbered}
 
-::: {#refs}
-:::
+1. [Лабораторная работа №6](https://esystem.rudn.ru/pluginfile.php/2089086/mod_resource/content/0/%D0%9B%D0%B0%D0%B1%D0%BE%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BD%D0%B0%D1%8F%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%20%E2%84%966.%20%D0%90%D1%80%D0%B8%D1%84%D0%BC%D0%B5%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5%20%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D0%B8%20%D0%B2%20NASM..pdf)
+
