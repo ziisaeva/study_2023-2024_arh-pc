@@ -1,29 +1,26 @@
 %include 'in_out.asm'
 SECTION .data
-msg db "Результат: ",0
+esult_msg db "Результат: ", 0
+coeff dd 10
+constant dd 5
 SECTION .text
 global _start
+
 _start:
 pop ecx
-pop edx
-sub ecx,1
+sub ecx, 1
 mov esi, 0
-mov edi,10
-mov eax, 5
-mul edi
-sub eax, 5
+next_value:
+cmp ecx, 0
+je print_result
+pop ebx
+call atoi
+eax, [coeff]
+sub eax, [constant]
 add esi, eax
-next:
-cmp ecx,0h
-jz _end
-pop eax
-mov ebx, 10
-mul ebx
-sub eax, 5
-add esi,eax
-loop next
-_end:
-mov eax, msg
+loop next_value
+print_result:
+mov eax, result_msg
 call sprint
 mov eax, esi
 call iprintLF
